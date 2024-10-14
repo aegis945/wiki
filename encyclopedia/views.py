@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from markdown2 import Markdown
 from . import util
 
@@ -28,3 +28,21 @@ def entry(request, title):
             "content": html_content
         })
 
+def search(request):
+    if request.method == "POST":
+        entry_search = request.POST['search_query']
+        html_content = convert_md_to_html(entry_search)
+
+        if html_content is not None:
+            return render(request, "encyclopedia/entry.html", {
+                "title": entry_search,
+                "content": html_content
+            })
+        else:
+            recommendations = [entry for entry in util.list_entries() if entry_search.lower() in entry.lower()]
+            return render(request, "encyclopedia/search.html", {
+                "recommendations": recommendations,
+                "entry_search": entry_search
+            })
+    else:
+        return redirect("encyclopedia:index")
