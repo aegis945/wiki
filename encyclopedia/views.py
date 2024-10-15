@@ -20,7 +20,7 @@ def entry(request, title):
     html_content = convert_md_to_html(title)
     if html_content is None:
         return render(request, "encyclopedia/error.html", {
-            "title": title
+            "message": f'The requested page "{title}" was not found in encyclopedia'
         })
     else:
         return render(request, "encyclopedia/entry.html", {
@@ -46,3 +46,20 @@ def search(request):
             })
     else:
         return redirect("encyclopedia:index")
+    
+def add_entry(request):
+    if request.method == "GET":
+        return render(request, "encyclopedia/new_entry.html")
+    else:
+        title = request.POST['title']
+        content = request.POST['content']
+        already_exists = util.get_entry(title)
+
+        if already_exists is not None:
+            return render(request, "encyclopedia/error.html", {
+                "message": f'The page with the title "{title}" already exists.'
+            })
+        else:
+            util.save_entry(title, content)
+            return redirect("encyclopedia:entry", title=title)
+    
