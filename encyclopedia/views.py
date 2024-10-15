@@ -63,3 +63,22 @@ def add_entry(request):
             util.save_entry(title, content)
             return redirect("encyclopedia:entry", title=title)
     
+def edit(request):
+    if request.method == "POST":
+        title = request.POST['title']
+        content = util.get_entry(title)
+        return render(request, "encyclopedia/edit.html", {
+            "title": title,
+            "content": content
+        })
+    else:
+        return redirect("encyclopedia:index")
+    
+def save_edit(request):
+    if request.method == "POST":
+        title = request.POST['title']
+        content = request.POST['content']
+        util.save_entry(title, content)
+        return redirect("encyclopedia:entry", title=title)
+    else:
+        return redirect("encyclopedia:index")

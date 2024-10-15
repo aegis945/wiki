@@ -1,15 +1,7 @@
-Heading
+Civitavecchia railway station
 =======
 
-Sub-heading
+Stazione di Civitavecchia
 -----------
 
-# Alternative heading
-
-## Alternative sub-heading
-
-Paragraphs are separated 
-by a blank line.
-
-Two spaces at the end of a line  
-produce a line break.
+Civitavecchia railway station serves the town and comune of Civitavecchia, the sea port for Rome, in the region of Lazio, central Italy. Opened in 1859, it forms part of the Pisa–Livorno–Rome railway.
